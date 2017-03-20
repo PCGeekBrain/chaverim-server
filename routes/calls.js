@@ -32,7 +32,7 @@ CallRoutes.post('/', function(req, res){
         if (!req.body.title && !req.body.details && !req.body.location && !req.body.name && !req.body.number){
             return res.status(400).json({success: false, message: "No information given"});
         };
-        let call = new Call({
+        var call = new Call({
             title: req.body.title,
             details: req.body.details,
             caller: {
