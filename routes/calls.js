@@ -63,7 +63,7 @@ CallRoutes.delete('/', function(req, res){
     if (['dispatcher', 'moderator', 'admin'].indexOf(req.user.role) >= 0){
         console.log(req.headers.id)
         Call.findOneAndRemove({_id: req.headers.id}, function(err, call){
-            if (err) {return res.status(500).json({success: false, err, message: "Internal Server Error"})};
+            if (err) {return res.status(500).json({success: false, err: err, message: "Internal Server Error"})};
             if (call == null){
                 return res.status(400).json({success: false, message: "User Does not exist", id: req.headers.id});
             } else {

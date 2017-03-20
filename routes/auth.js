@@ -50,7 +50,7 @@ authRoutes.get('/users', function (req, res) {
   }
 });
 
-let updateField = function (user, field, value, admin, res) {
+var updateField = function (user, field, value, admin, res) {
   if (field === 'name') {
     user.name = value;
     user.save(function (err) {
