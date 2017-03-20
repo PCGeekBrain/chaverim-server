@@ -87,10 +87,10 @@ var updateField = function (user, field, value, admin, res) {
 /** PUT updates user data (admin, moderator)
  * Needs user, field, value
  */
-authRoutes.put('/users', (req, res) => {
+authRoutes.put('/users', function(req, res) {
   // If the request is from an admin editing a user
   if (['admin', 'moderator'].indexOf(req.user.role) >= 0 && req.body.user) {
-    User.findOne({ email: req.body.user }, { password: 0, __v: 0 }, (err, user) => {
+    User.findOne({ email: req.body.user }, { password: 0, __v: 0 }, function(err, user) {
       if (err) { return res.status(500).json({ success: false, message: "Internal Server Error" }) }
       else if (!user) {
         return res.status(500).json({ success: false, message: "User Does Not Exist" })
@@ -103,7 +103,7 @@ authRoutes.put('/users', (req, res) => {
     });
     //otherwise if it is the user itself
   } else if (req.body.value && (['name', 'number', 'password'].indexOf(req.body.field) >= 0)) {
-    User.findOne({ _id: req.user._id }, { password: 0, __v: 0 }, (err, user) => {
+    User.findOne({ _id: req.user._id }, { password: 0, __v: 0 }, function(err, user) {
       if (err) { return res.status(500).json({ success: false, message: "Internal Server Error" }) }
       updateField(user, req.body.field, req.body.value, false, res);
     });
