@@ -18,11 +18,7 @@ var CallSchema = new Schema({
         name: String,
         number: String,
     },
-    backupId: {type: String, default: ""},
-    backup: {
-        name: String,
-        number: String,
-    },
+    backup: { type: [String], default: [] },
     createdAt: { type : Date, default: Date.now },
 });
 
