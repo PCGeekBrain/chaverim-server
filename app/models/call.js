@@ -12,12 +12,12 @@ var CallSchema = new Schema({
         name: {type: String, default: ""},
         number: String,
     },
-    responderId: String,
+    responderId: {type: String, default: ""},
     responder: {
         name: String,
         number: String,
     },
-    backupId: String,
+    backupId: {type: String, default: ""},
     backup: {
         name: String,
         number: String,

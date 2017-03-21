@@ -40,6 +40,8 @@ CallRoutes.post('/', function(req, res){
                 name: req.body.name,
                 number: req.body.number,
             },
+            responderId: "",
+            backupId: "",
         });
         call.save(function(err, call, rows_affected){
             if (err) {
