@@ -6,6 +6,7 @@ var CallSchema = new Schema({
     title: String,
     details: String,
     taken: {type: Boolean, default: false},
+    canceled: {type: Boolean, default: false},
     finished: {type: Boolean, index: true, default: false},
     caller: {
         location: String,

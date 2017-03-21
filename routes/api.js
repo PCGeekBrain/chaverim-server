@@ -4,6 +4,8 @@ var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var CallRoutes = require('./calls.js');
 var TakeRoutes = require('./take');
+var BackupRoutes = require('./backup');
+var CancelRoutes = require('./cancel');
 
 //Create The Router
 var apiRoutes = express.Router();
@@ -13,7 +15,9 @@ apiRoutes.use(passport.authenticate('jwt', { session: false }));
 
 // Add the calling api
 apiRoutes.use('/calls', CallRoutes);
+apiRoutes.use('/calls/cancel', CancelRoutes);
 apiRoutes.use('/calls/take', TakeRoutes);
+apiRoutes.use('/calls/backup', BackupRoutes);
 
 apiRoutes.get('/profile', function(req, res) {
   res.json({
