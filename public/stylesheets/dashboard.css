@@ -1,28 +1,28 @@
 /**********************NavBar**********************/
-.navbar-right{
+.navbar .navbar-right{
     margin-right: 25px;
 }
-.side-menu{
+.navbar .side-menu{
     padding: 0px;
     height: 100%;
 }
-.side-menu .list-group{
+.navbar .side-menu .list-group{
     border-radius: 0px;
 }
-.navbar-toggle{
+.navbar .navbar-toggle{
     border-color: transparent;
 }
-.list-group-item a{
+.navbar .list-group-item a{
     color: #555;
 }
-.list-group-item.disabled a{
+.navbar .list-group-item.disabled a{
     color: #777;
 }
-.list-group-item.active a{
+.navbar .list-group-item.active a{
     color: #fff;
 }
 @media(max-width:767px){
-    .navbar-text{
+    .navbar .navbar-text{
         margin: 8px 25px;
     }
 }
