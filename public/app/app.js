@@ -1,6 +1,6 @@
 'use strict';
 
-var routerApp = angular.module('routerApp', ['ui.router', 'angular-jwt', 'angular-storage']);
+var routerApp = angular.module('routerApp', ['ui.router', 'angular-jwt', 'angular-storage', 'ngMaterial']);
 
 routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/login');
@@ -51,9 +51,9 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
     })
     // Show the accounts and allow them to be edited =======================
     .state('app.editaccounts', {
-        url: '/editaccounts',
+        url: '/users',
         templateUrl: 'app/views/accounts.html',
-        controller: 'AccountController'
+        controller: 'AccountsController'
     })
 })
 .run(function($rootScope, $state, store, jwtHelper) {

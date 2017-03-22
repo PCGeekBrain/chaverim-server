@@ -1,4 +1,7 @@
 /*Site wide styles*/
+html.md-default-theme, html, body.md-default-theme, body{
+  background: #fff;
+}
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
