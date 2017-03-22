@@ -1,0 +1,33 @@
+extends layout
+
+block style
+  link(rel='stylesheet', href='/stylesheets/dashboard.css')
+
+block navbar
+    .navbar.navbar-default
+        .container-fluid
+            .navbar-header
+                a(href="#" ng-click="logout()").navbar-text.navbar-right.collapsed.navbar-toggle Logout
+                a(href="/").navbar-brand CH<b>Chaverim</b>
+            a(href="#" ng-click="logout()").navbar-text.navbar-right.navbar-collapse.collapse Logout
+
+block content
+    .col-md-2.col-sm-2.side-menu
+        ul.list-group
+            button.list-group-item.active
+                a(href="#/calls") Calls
+            button.list-group-item
+                a(href="#/current") Current
+            button.list-group-item
+                a(href="#/account") Account
+            li.list-group-item.list-group-item-info Admin
+            button.list-group-item.disabled
+                a(href="#/accounts") Accounts
+            button.list-group-item.disabled
+                a(href="#/logs") Logs
+    .col-md-10.col-sm-10
+        ui-view
+
+block scripts
+    script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js')

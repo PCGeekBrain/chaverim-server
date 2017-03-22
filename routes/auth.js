@@ -24,7 +24,7 @@ authRoutes.post('/authenticate', function (req, res) {
           if (isMatch && !err) {
             // Create token if the password matched and no error was thrown
             var token = jwt.sign({ id: user._id.toString() }, config.secret, {
-              expiresIn: '1h',
+              expiresIn: '24h',
             });
             //Yey! we have a token for some time. here it is along will all your information becuase if a hacker gets this far he deserves it too no? (Chill its for debugging)
             return res.status(200).json({ success: true, name: user.name, number: user.number, role: user.role, token: 'JWT ' + token });

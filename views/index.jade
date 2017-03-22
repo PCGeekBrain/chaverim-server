@@ -3,6 +3,14 @@ extends layout
 block style
   link(rel='stylesheet', href='/stylesheets/index.css')
 
+block navbar
+  .navbar.navbar-default
+    .container
+      .navbar-header
+        a(href="").navbar-brand Chaverim of Crown Heights
+      a(href="/dashboard").navbar-text.navbar-right Dashboard
+    .content
+
 block content
   .jumbotron.intro
     .container.intro
@@ -35,4 +43,14 @@ block content
           .submit
             button(type="submit").btn.btn-primary Submit
           
+  footer
+    .container
+      .row
+        .col-md-4
+          p &copy; Chaverim of CH 2017
+        .col-md-4
+          p
+            a(href="#") Join us
+        .col-md-4
+          p Some random text that is not lorem ipsum
 
