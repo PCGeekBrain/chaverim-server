@@ -16,10 +16,13 @@ block content
     ui-view
 
 block scripts
-    script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js')
+    script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js')
     script(src='/app/vendor/angular-storage.min.js')
+    script(src='/app/vendor/angular-jwt.min.js')
 
     //- Import view Controllers
     script(src='/app/app.js')
+    script(src='/app/controllers/home.js')
     script(src='/app/controllers/login.js')
+    script(src='/app/controllers/accounts.js')

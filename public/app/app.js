@@ -1,9 +1,15 @@
 'use strict';
 
-var routerApp = angular.module('routerApp', ['ui.router', 'angular-storage']);
+var routerApp = angular.module('routerApp', ['ui.router', 'angular-jwt', 'angular-storage']);
 
-routerApp.config(function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/app');
+routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
+    $urlRouterProvider.otherwise('/login');
+
+    jwtInterceptorProvider.tokenGetter = function(store) {
+        return store.get('jwt');
+    }
+    $httpProvider.interceptors.push('jwtInterceptor');
+
     $stateProvider
     //Login view
     .state('login', {
@@ -17,7 +23,8 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
         templateUrl: 'app/views/app.html',
         data: {
             requireLogin: true // this property will apply to all children of 'app'
-        }
+        },
+        controller: 'HomeController'
     })
     // nested list with just some random string data ======================
     .state('app.calls', {
@@ -46,5 +53,27 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
     .state('app.editaccounts', {
         url: '/editaccounts',
         templateUrl: 'app/views/accounts.html',
+        controller: 'AccountController'
     })
+})
+.run(function($rootScope, $state, store, jwtHelper) {
+    $rootScope.$on('$stateChangeStart', function(e, to) {
+        if (to.data && to.data.requireLogin) {
+            if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
+                e.preventDefault();
+                $state.go('login');
+            }
+        }
+    });
+    $rootScope.$on('tokenHasExpired', function() {
+        alert('Run, Your session has expired!');
+        $state.go('login');
+    });
+})
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
+    $scope.$on('$routeChangeSuccess', function(e, nextRoute){
+        if ( nextRoute.$$route && angular.isDefined( nextRoute.$$route.pageTitle ) ) {
+        $scope.pageTitle = nextRoute.$$route.pageTitle + ' | ngEurope Sample' ;
+        }
+    });
 });
