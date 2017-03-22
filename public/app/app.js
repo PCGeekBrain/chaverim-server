@@ -1,3 +1,5 @@
+'use strict';
+
 var routerApp = angular.module('routerApp', ['ui.router']);
 
 routerApp.config(function($stateProvider, $urlRouterProvider) {
@@ -6,12 +8,13 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
     //Login view
     .state('login', {
         url: '/login',
-        templateUrl: 'app/login/login.html'
+        templateUrl: 'app/views/login.html',
+        controller: 'LoginControler'
     })
     // App Section that requires Authentication ===========================
     .state('app', {
         url: '/app',
-        templateUrl: 'app/main/app.html',
+        templateUrl: 'app/views/app.html',
         data: {
             requireLogin: true // this property will apply to all children of 'app'
         }
@@ -19,27 +22,29 @@ routerApp.config(function($stateProvider, $urlRouterProvider) {
     // nested list with just some random string data ======================
     .state('app.calls', {
         url: '/calls',
-        templateUrl: 'app/calls/calls.html',
+        templateUrl: 'app/views/calls.html',
     })
     // Current page lists all the current calls ===========================
     .state('app.current', {
         url: '/current',
-        templateUrl: 'app/current/current.html',
+        templateUrl: 'app/views/current.html',
         controller: function($scope) {
             $scope.calls = ['Bernese', 'Husky', 'Goldendoodle'];
         }
     })
-    // nested list with just some random string data ======================
+    // Show the current account and edit it ===============================
     .state('app.account', {
         url: '/account',
-        templateUrl: 'app/account/account.html',
+        templateUrl: 'app/views/account.html',
     })
+    // Show the logs in a table ===========================================
     .state('app.logs', {
         url: '/logs',
-        templateUrl: 'app/logs/log.html',
+        templateUrl: 'app/views/log.html',
     })
+    // Show the accounts and allow them to be edited =======================
     .state('app.editaccounts', {
         url: '/editaccounts',
-        templateUrl: 'app/accounts/accounts.html',
+        templateUrl: 'app/views/accounts.html',
     })
 });
