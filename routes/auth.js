@@ -45,7 +45,7 @@ authRoutes.use('/users', passport.authenticate('jwt', { session: false }));
 
 /** GET all the users (admin, moderator)*/
 authRoutes.get('/users', function (req, res) {
-  if (req.user.role == "admin" || req.user.role == 'moderator') {
+  if (['admin', 'moderator', 'dispatcher'].indexOf(req.user.role) >= 0) {
     User.find({}, { password: 0, __v: 0 }, function (err, users) {
       if (err) throw err;
       res.status(200).json({ success: true, message: "Successfull listing of users", users: users })
@@ -96,25 +96,22 @@ authRoutes.put('/users', function(req, res) {
   // If the request is from an admin editing a user
   if (['admin', 'moderator'].indexOf(req.user.role) >= 0 && req.body.user) {
     User.findOne({ email: req.body.user }, { password: 0, __v: 0 }, function(err, user) {
-      if (err) { return res.status(500).json({ success: false, message: "Internal Server Error" }) }
+      if (err) { return res.status(500).json({ success: false, message: "Internal Server Error" }); }
       else if (!user) {
-        return res.status(500).json({ success: false, message: "User Does Not Exist" })
-      } else if (user.role == 'admin' && user._id != req.user._id) {
-        res.status(403).json({ success: false, message: "You Cannot edit other admins" })
+        return res.status(500).json({ success: false, message: "User Does Not Exist" });
       } else {
-        console.log(req.body.field);
         updateField(user, req.body.field, req.body.value, true, res);
       }
     });
     //otherwise if it is the user itself
-  } else if (req.body.value && (['name', 'number', 'password'].indexOf(req.body.field) >= 0)) {
+  } else if (req.body.value) {
     User.findOne({ _id: req.user._id }, { password: 0, __v: 0 }, function(err, user) {
       if (err) { return res.status(500).json({ success: false, message: "Internal Server Error" }) }
       updateField(user, req.body.field, req.body.value, false, res);
     });
   } else {
     console.log(req.body.field);
-    res.status(400).json({ success: false, message: "Invalid Request" })
+    res.status(400).json({ success: false, message: "Invalid Request" });
   }
 });
 
@@ -131,6 +128,7 @@ authRoutes.post('/users', function (req, res) {
         password: req.body.password,
         name: req.body.name,
         number: req.body.number,
+        role: req.body.role
       });
 
       newUser.save(function (err) {
@@ -151,12 +149,17 @@ authRoutes.post('/users', function (req, res) {
 authRoutes.delete('/users', function (req, res) {
   if (req.user.role == 'admin') {
     if (req.headers.user) {
-      User.findOneAndRemove({ email: req.headers.user }, { password: 0, __v: 0 }, function (err, user) {
-        if (err) { return res.status(500).json({ success: false, message: "Error getting user", user: req.headers.user }) };
+      User.findOne({ email: req.headers.user }, { password: 0, __v: 0 }, function (err, user) {
+        if (err) { return res.status(500).json({ success: false, message: "Internal Server Error"}) };
         if (user === null) {
           return res.status(404).json({ success: false, message: "No Such User" });
+        } else if (user.role == 'admin') {
+          return res.status(403).json({ success: false, message: "You cannot delete other Admins Here" });
         } else {
-          res.status(200).json({ success: true, message: "Successfully deleted user", user: user });
+          user.remove(function(err, user) {
+            if(err){return res.status(500).json({ success: false, message: "Internal Server Error"})}
+            return res.status(200).json({ success: true, message: "Successfully deleted user", user: user });
+          });
         }
       });
     } else {

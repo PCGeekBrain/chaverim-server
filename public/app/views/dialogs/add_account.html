@@ -1,4 +1,4 @@
-<md-dialog aria-label="New Client" ng-cloak class="appdialog adduser" ng-init="clientfrmctrl.init()">
+<md-dialog aria-label="New Account" ng-cloak class="appdialog adduser" ng-init="clientfrmctrl.init()">
     
     <form name="clientForm" novalidate ng-submit="save()">
         <md-toolbar>
@@ -30,6 +30,18 @@
             <md-input-container class="md-block">
                 <label>Number</label>
                 <input required type="text" name="number" ng-model="user.number">
+            </md-input-container>
+
+            <!-- Role -->
+            <md-input-container class="md-block">
+                <label>Role</label>
+                <md-select ng-model="user.role" placeholder="Role">
+                    <md-option value="viewer">Viewer</md-option>
+                    <md-option value="responder">Responder</md-option>
+                    <md-option value="dispatcher">Dispatcher</md-option>
+                    <md-option value="moderator">Moderator</md-option>
+                    <md-option value="admin">Admin</md-option>
+                </md-select>
             </md-input-container>
 
         </md-dialog-content>
