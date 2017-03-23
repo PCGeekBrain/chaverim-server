@@ -70,7 +70,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
         $state.go('login');
     });
 })
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
+.controller( 'AppCtrl', function AppCtrl ( $scope, $http, $mdDialog, $location ) {
     $scope.$on('$routeChangeSuccess', function(e, nextRoute){
         if ( nextRoute.$$route && angular.isDefined( nextRoute.$$route.pageTitle ) ) {
         $scope.pageTitle = nextRoute.$$route.pageTitle + ' | ngEurope Sample' ;

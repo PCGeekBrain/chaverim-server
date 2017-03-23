@@ -1,12 +1,27 @@
 <div class="col-md-2 col-sm-2" style="padding: 0px">
     <ul class="list-group">
-        <button type="button" ui-sref=".calls" class="list-group-item">Calls</button>
-        <button type="button" ui-sref=".current" class="list-group-item">Current</button>
-        <button type="button" ui-sref=".account" class="list-group-item">Account</button>
-        <button type="button" ui-sref=".logs" class="list-group-item">Logs</button>
-        <button type="button" ui-sref=".editaccounts" class="list-group-item">Users</button>
+        <button type="button" ui-sref=".calls" class="list-group-item">
+            <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> 
+            Calls
+        </button>
+        <button type="button" ui-sref=".current" class="list-group-item">
+            <span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 
+            Current
+        </button>
+        <button type="button" ui-sref=".account" class="list-group-item">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
+             Account
+        </button>
+        <button type="button" ui-sref=".logs" class="list-group-item">
+            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 
+            Logs
+        </button>
+        <button type="button" ui-sref=".editaccounts" class="list-group-item">
+            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> 
+            Users
+        </button>
+        <li class="list-group-item">Current session expires in {{ tokenExpiresIn }}</li>
     </ul>
-    <p>Current session expires in {{ tokenExpiresIn }}</p>
 </div>
 <div class="col-md-10 col-sm-10 content">
     <div ui-view></div>

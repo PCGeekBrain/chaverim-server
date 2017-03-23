@@ -1,0 +1,38 @@
+<md-dialog aria-label="Edit Account" ng-cloak class="appdialog adduser" ng-init="clientfrmctrl.init()">
+    
+    <form name="editForm" novalidate ng-submit="save()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Edit User</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding: 15px;">
+            <br>
+            <!-- field -->
+            <md-input-container class="md-block">
+                <label>Feild</label>
+                <md-select required ng-model="field" placeholder="Password...">
+                    <md-option value="name">Name</md-option>
+                    <md-option value="number">Number</md-option>
+                    <md-option value="password">Password</md-option>
+                    <md-option value="role">Role</md-option>
+                </md-select>
+            </md-input-container>
+
+            <!-- value -->
+            <md-input-container class="md-block">
+                <label>value</label>
+                <input required type="text" name="value" ng-model="value">
+            </md-input-container>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end">
+            <md-button ng-click="cancel()" type="button">
+                Cancel
+            </md-button>
+            <md-button ng-disabled="clientForm.$invalid" type="submit" class="md-primary">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

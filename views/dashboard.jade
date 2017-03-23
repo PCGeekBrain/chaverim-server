@@ -18,7 +18,7 @@ block content
 
 block scripts
     script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js')
-    //-- Angular Material requires Angular.js Libraries
+    //-- Angular Material requires additional Angular.js Libraries
     script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js")
     script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js")
     script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js")
@@ -35,3 +35,6 @@ block scripts
     script(src='/app/controllers/home.js')
     script(src='/app/controllers/login.js')
     script(src='/app/controllers/accounts.js')
+
+    //-- Import required services
+    script(src='/app/services/httpcall.js')
