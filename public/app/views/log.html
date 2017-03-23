@@ -10,15 +10,60 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Details</th>
-            <th>Created At</th>
-            <th>Caller</th>
-            <th>Responder</th>
-            <th>Number of Backups</th>
-            <th>Finished</th>
-            <th>Canceled</th>
-            <th>Taken</th>
+            <th>
+                <a ng-click="sortType = 'title'; sortReverse = !sortReverse">Title
+                <span ng-show="sortType == 'title' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'title' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th>
+            <th>
+                <a ng-click="sortType = 'details'; sortReverse = !sortReverse">Details
+                <span ng-show="sortType == 'details' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'details' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th> 
+            <th>
+                <a ng-click="sortType = 'createdAt'; sortReverse = !sortReverse">Created At
+                <span ng-show="sortType == 'createdAt' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'createdAt' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th> 
+            <th>
+                <a ng-click="sortType = 'caller.name'; sortReverse = !sortReverse">Caller
+                <span ng-show="sortType == 'caller.name' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'caller.name' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th> 
+            <th>
+                <a ng-click="sortType = 'responder.name'; sortReverse = !sortReverse">Responder
+                <span ng-show="sortType == 'responder.name' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'responder.name' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th> 
+            <th>
+                <a ng-click="sortType = 'backup.length'; sortReverse = !sortReverse">Number of Backups
+                <span ng-show="sortType == 'backup.length' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'backup.length' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th> 
+            <th>
+                <a ng-click="sortType = 'finished'; sortReverse = !sortReverse">Finished
+                <span ng-show="sortType == 'finished' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'finished' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th> 
+            <th>
+                <a ng-click="sortType = 'canceled'; sortReverse = !sortReverse">Canceled
+                <span ng-show="sortType == 'canceled' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'canceled' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th> 
+            <th>
+                <a ng-click="sortType = 'taken'; sortReverse = !sortReverse">Taken
+                <span ng-show="sortType == 'taken' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'taken' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th> 
             <th>Delete</th>
         </tr>
     </thead>
