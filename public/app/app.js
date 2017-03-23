@@ -3,7 +3,7 @@
 var routerApp = angular.module('routerApp', ['ui.router', 'angular-jwt', 'angular-storage', 'ngMaterial']);
 
 routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/app');
 
     jwtInterceptorProvider.tokenGetter = function(store) {
         return store.get('jwt');
