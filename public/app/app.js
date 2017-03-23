@@ -48,6 +48,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
     .state('app.logs', {
         url: '/logs',
         templateUrl: 'app/views/log.html',
+        controller: 'LogsController'
     })
     // Show the accounts and allow them to be edited =======================
     .state('app.editaccounts', {

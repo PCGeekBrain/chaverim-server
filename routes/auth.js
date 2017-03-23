@@ -55,7 +55,7 @@ authRoutes.get('/users', function (req, res) {
   }
 });
 
-var updateField = function (user, field, value, admin, res) {
+var updateField = function (user, field, value, admin, passEdit, res) {
   if (field === 'name') {
     user.name = value;
     user.save(function (err) {
@@ -68,7 +68,7 @@ var updateField = function (user, field, value, admin, res) {
       if (err) { return res.status(500).json({ success: false, message: 'Error updating number', error: err }); }
       res.status(202).json({ success: true, message: 'Successfully updated number', user: user });
     });
-  } else if (field === 'password') {
+  } else if (field === 'password' && passEdit) {
     user.password = value;
     user.save(function (err) {
       if (err) { return res.status(500).json({ success: false, message: 'Error updating password', error: err }); }
@@ -99,15 +99,17 @@ authRoutes.put('/users', function(req, res) {
       if (err) { return res.status(500).json({ success: false, message: "Internal Server Error" }); }
       else if (!user) {
         return res.status(500).json({ success: false, message: "User Does Not Exist" });
+      } else if(user.role === 'admin' && req.user.role === 'moderator') { //if a mod wants to edit admin password tell him to take a hike.
+          updateField(user, req.body.field, req.body.value, true, false, res);
       } else {
-        updateField(user, req.body.field, req.body.value, true, res);
+          updateField(user, req.body.field, req.body.value, true, true, res);
       }
     });
     //otherwise if it is the user itself
   } else if (req.body.value) {
     User.findOne({ _id: req.user._id }, { password: 0, __v: 0 }, function(err, user) {
       if (err) { return res.status(500).json({ success: false, message: "Internal Server Error" }) }
-      updateField(user, req.body.field, req.body.value, false, res);
+      updateField(user, req.body.field, req.body.value, false, true, res);
     });
   } else {
     console.log(req.body.field);
@@ -153,7 +155,7 @@ authRoutes.delete('/users', function (req, res) {
         if (err) { return res.status(500).json({ success: false, message: "Internal Server Error"}) };
         if (user === null) {
           return res.status(404).json({ success: false, message: "No Such User" });
-        } else if (user.role == 'admin') {
+        } else if (user.role === 'admin') {
           return res.status(403).json({ success: false, message: "You cannot delete other Admins Here" });
         } else {
           user.remove(function(err, user) {

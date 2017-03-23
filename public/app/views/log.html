@@ -1,1 +1,43 @@
-Show the logs here
+<form>
+    <div class="form-group">
+        <div class="input-group">
+        <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+        <input type="text" class="form-control" placeholder="Search Log..." ng-model="searchLog">
+        </div>      
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Details</th>
+            <th>Created At</th>
+            <th>Caller</th>
+            <th>Responder</th>
+            <th>Number of Backups</th>
+            <th>Finished</th>
+            <th>Canceled</th>
+            <th>Taken</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="call in log | orderBy:sortType:sortReverse | filter:searchLog">
+            <td>{{ call.title }}</td>
+            <td>{{ call.details }}</td>
+            <td>{{ call.createdAt }}</td>
+            <td>{{ call.caller.name }} | {{ call.caller.number }}</td>
+            <td>{{ call.responder.name }} | {{ call.responder.number }}</td>
+            <td>{{ call.backup.length }}</td>
+            <td>{{ call.finished }}</td>
+            <td>{{ call.canceled }}</td>
+            <td>{{ call.taken }}</td>
+            <td>
+                <button class="btn btn-danger disabled" ng-click="deleteItem(account, $event)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
