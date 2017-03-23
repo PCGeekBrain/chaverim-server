@@ -30,6 +30,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
     .state('app.calls', {
         url: '/calls',
         templateUrl: 'app/views/calls.html',
+        controller: 'CallsController'
     })
     // Current page lists all the current calls ===========================
     .state('app.current', {
@@ -71,7 +72,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
         $state.go('login');
     });
 })
-.controller( 'AppCtrl', function AppCtrl ( $scope, $http, $mdDialog, $location ) {
+.controller( 'AppCtrl', function AppCtrl ( $scope, $http, $mdDialog, $location, store) {
     $scope.$on('$routeChangeSuccess', function(e, nextRoute){
         if ( nextRoute.$$route && angular.isDefined( nextRoute.$$route.pageTitle ) ) {
         $scope.pageTitle = nextRoute.$$route.pageTitle + ' | ngEurope Sample' ;

@@ -1,22 +1,33 @@
 <div class="col-md-2 col-sm-2" style="padding: 0px">
     <ul class="list-group">
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-8">
+                    <h3 class="currentUser">{{ currentUser.name }}</h3>
+                    <p>{{ currentUser.number }}<br>{{ currentUser.role }}</p>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-danger" ng-click="logOut()">LogOut</button>
+                </div>
+            </div>
+        </li>
         <button type="button" ui-sref=".calls" class="list-group-item">
             <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> 
             Calls
         </button>
         <button type="button" ui-sref=".current" class="list-group-item">
-            <span class="glyphicon glyphicon-bell" aria-hidden="true"></span> 
+            <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> 
             Current
         </button>
         <button type="button" ui-sref=".account" class="list-group-item">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
              Account
         </button>
-        <button type="button" ui-sref=".logs" class="list-group-item">
+        <button type="button" ng-disabled="!currentUser.moderator" ng-class="currentUser.moderator ? '' : 'disabled'" ui-sref=".logs" class="list-group-item">
             <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 
             Logs
         </button>
-        <button type="button" ui-sref=".editaccounts" class="list-group-item">
+        <button type="button" ui-sref=".editaccounts" ng-disabled="!currentUser.dispatch" ng-class="currentUser.dispatch ? '' : 'disabled'" class="list-group-item">
             <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> 
             Users
         </button>
