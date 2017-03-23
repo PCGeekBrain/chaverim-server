@@ -30,5 +30,35 @@ apiRoutes.get('/profile', function(req, res) {
     });
 });
 
+//TODO make this whole thing into its own subroute
+apiRoutes.post('/device/register', function(req, res) {
+  console.log(req.body);
+  if(req.body.token){
+    if (req.user.devices.indexOf(req.body.token) < 0){
+        req.user.devices.push(req.body.token);
+        return res.status(200).json({success: true, messsage: "Added Device", devices: req.user.devices})
+    }else {
+      return res.status(401).json({success: false, messsage: "Device already Registered"})
+    }
+    //TODO add to main list
+  } else {
+    return res.status(401).json({success: false, messsage: "Invalid Request"})
+  }
+});
+
+apiRoutes.delete('/device/register', function(req, res) {
+  console.log(req.header);
+  if(req.header.token){
+    if (req.user.devices.indexOf(req.header.token) < 0){
+        req.user.devices.splice(req.user.devices.indexOf(req.header.token), 1);
+        return res.status(200).json({success: true, messsage: "Removed Device", devices: req.user.devices})
+    }else {
+      return res.status(401).json({success: false, messsage: "Device already Registered"})
+    }
+    //TODO add to main list
+  } else {
+    return res.status(401).json({success: false, messsage: "Invalid Request"});
+  }
+});
 
 module.exports = apiRoutes;
