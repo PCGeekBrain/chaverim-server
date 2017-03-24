@@ -11,7 +11,7 @@ var CallRoutes = express.Router();
  * GET -> Gets a list of all unfinished calls tied to that user
  */
 CallRoutes.get('/', function(req, res){
-    Call.find({finished: false, backup: req.email}, {__v: 0}, function(err, calls){
+    Call.find({finished: false, backup: req.user.email}, {__v: 0}, function(err, calls){
         if(err){return res.status(500).json({success: false, error: err, message: "Internal Server Error"})}
         res.status(200).json({success: true, calls: calls});
     });
