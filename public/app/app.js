@@ -36,9 +36,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
     .state('app.current', {
         url: '/current',
         templateUrl: 'app/views/current.html',
-        controller: function($scope) {
-            $scope.calls = ['Bernese', 'Husky', 'Goldendoodle'];
-        }
+        controller: 'CurrentController'
     })
     // Show the current account and edit it ===============================
     .state('app.account', {

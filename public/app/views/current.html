@@ -1,4 +1,75 @@
-Show Current calls here
-<ul>
-    <li ng-repeat="call in calls">{{ call }}</li>
-</ul>
+<h1>Current Calls</h1>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Created At</th>            
+            <th>Title</th>
+            <th>Details</th>
+            <th>Caller</th>
+            <th>Location</th>
+            <th>Responder</th>
+            <th>Backups</th>
+            <th>Actions</th>
+            <button class="btn btn-default" ng-click="refreshCurrent()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh
+            </button>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="call in calls | orderBy:call.createdAt">
+            <td>{{ $parent.cleantime(call.createdAt) }}</td>
+            <td>{{ call.title }}</td>
+            <td>{{ call.details }}</td>
+            <td>{{ call.caller.name }} | {{ call.caller.number }}</td>
+            <td>{{ call.caller.location }}</td>
+            <td>{{ call.responder.name }} | {{ call.responder.number }}</td>
+            <td>
+                <p ng-repeat="backups in call.backup">{{ backups }}<p>
+            </td>
+            <td>
+                <button class="btn btn-success" ng-disabled="call.taken" ng-class="call.taken ? 'disabled' : ''" ng-click="finishCall(call, $event)">
+                    <span class="glyphicon glyphicon-road" aria-hidden="true"></span> Finish Call
+                </button>
+                <button class="btn btn-info" ng-click="cancelCall(call, $event)">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Drop Call
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>On Backup for</h1>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Created At</th>            
+            <th>Title</th>
+            <th>Details</th>
+            <th>Caller</th>
+            <th>Location</th>
+            <th>Responder</th>
+            <th>Actions</th>
+            <button class="btn btn-default" ng-click="refreshBackup()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh
+            </button>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="call in backups | orderBy:call.createdAt">
+            <td>{{ $parent.cleantime(call.createdAt) }}</td>
+            <td>{{ call.title }}</td>
+            <td>{{ call.details }}</td>
+            <td>{{ call.caller.name }} | {{ call.caller.number }}</td>
+            <td>{{ call.caller.location }}</td>
+            <td>{{ call.responder.name }} | {{ call.responder.number }}</td>
+            <td>
+                <button class="btn btn-success" ng-disabled="call.taken" ng-class="call.taken ? 'disabled' : ''" ng-click="finishBackup(call, $event)">
+                    <span class="glyphicon glyphicon-road" aria-hidden="true"></span> Finish Call
+                </button>
+                <button class="btn btn-info" ng-click="cancelBackup(call, $event)">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Drop Call
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -19,4 +19,10 @@ angular.module('routerApp')
 
     $scope.refresh();
 
+    $scope.cleantime = function(time){
+        var date = new Date(time);
+        var timeOfDay = $scope.$parent.cleantime(time);
+        return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + "  " + timeOfDay;
+    }
+
 });

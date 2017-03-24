@@ -30,6 +30,18 @@ angular.module('routerApp')
             }
         }
     });
+    
+    //formatting functions
+    $scope.cleantime = function(time){
+        var date = new Date(time);
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours > 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        var finalminutes = minutes < 10 ? '0'+minutes : minutes;
+        return hours + ":" + finalminutes + " " + ampm;
+    }
 });
 
 function parseTime(duration) {

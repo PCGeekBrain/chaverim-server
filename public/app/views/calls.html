@@ -15,8 +15,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="call in calls | orderBy:call.createdAt | filter:searchAccount">
-            <td>{{ call.createdAt }}</td>
+        <tr ng-repeat="call in calls | orderBy:call.createdAt">
+            <td>{{ $parent.cleantime(call.createdAt) }}</td>
             <td>{{ call.title }}</td>
             <td>{{ call.details }}</td>
             <td>{{ call.caller.name }} | {{ call.caller.number }}</td>
@@ -32,12 +32,12 @@
                 <button class="btn btn-info" ng-click="backupCall(call, $event)">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Backup Call
                 </button>
-                <button class="btn btn-danger" ng-if="$parent.currentUser.dispatch" ng-click="deleteUser(account, $event)">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Drop Call
+                <button class="btn btn-danger" ng-show="$parent.currentUser.dispatch" ng-click="cancelCall(call, $event)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Cancel Call
                 </button>
             </td>
         </tr>
     </tbody>
 </table>
 
-<md-button ng-if="$parent.currentUser.dispatch" class="md-raised md-primary" ng-click="addAccount($event)">Create Call</md-button>
+<md-button ng-if="$parent.currentUser.dispatch" class="md-raised md-primary" ng-click="createCall($event)">Create Call</md-button>

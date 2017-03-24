@@ -1,0 +1,57 @@
+<md-dialog aria-label="Create Call" ng-cloak class="appdialog adduser">
+    
+    <form name="editForm" novalidate ng-submit="save()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add Call</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding: 15px;">
+            <br>
+            <!-- field -->
+            <md-input-container class="md-block">
+                <label>Title</label>
+                <md-select ng-model="call.title" placeholder="Boost">
+                    <md-option value="Boost">Boost</md-option>
+                    <md-option value="Lockout of car">Lockout of car</md-option>
+                    <md-option value="Lockout of a House">Lockout of a House</md-option>
+                    <md-option value="Flat tire - Change tire">Flat tire - Change tire</md-option>
+                    <md-option value="Flat tire - Needs air">Flat tire - Needs air</md-option>
+                    <md-option value="Car out of Gas">Car out of Gas</md-option>
+                    <md-option value="Car stuck on snow/ice">Car stuck on snow/ice</md-option>
+                    <md-option value="Cut a bike lock">Cut a bike lock</md-option>
+                    <md-option value="CHILD LOCKED IN CAR">CHILD LOCKED IN CAR</md-option>
+                    <md-option value="CHILD LOCKED IN HOUSE">CHILD LOCKED IN HOUSE</md-option>
+                    <md-option value="Chesed Call">Chesed Call</md-option>
+                    <md-option value="Other">Other</md-option>
+                </md-select>
+            </md-input-container>
+            <br>
+            <md-input-container class="md-block">
+                <label>Details</label>
+                <input type="text" ng-model="call.details">
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Name</label>
+                <input type="text" ng-model="call.name">
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Number</label>
+                <input type="text" ng-model="call.number">
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Location</label>
+                <input type="text" ng-model="call.location">
+            </md-input-container>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end">
+            <md-button ng-click="cancel()" type="button">
+                Cancel
+            </md-button>
+            <md-button ng-disabled="clientForm.$invalid" type="submit" class="md-primary">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

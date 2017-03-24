@@ -45,7 +45,8 @@
                 <span ng-show="sortType == 'backup.length' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                 <span ng-show="sortType == 'backup.length' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                 </a>
-            </th> 
+            </th>
+            <th>Backups</th>
             <th>
                 <a ng-click="sortType = 'finished'; sortReverse = !sortReverse">Finished
                 <span ng-show="sortType == 'finished' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
@@ -64,25 +65,22 @@
                 <span ng-show="sortType == 'taken' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                 </a>
             </th> 
-            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="call in log | orderBy:sortType:sortReverse | filter:searchLog">
             <td>{{ call.title }}</td>
             <td>{{ call.details }}</td>
-            <td>{{ call.createdAt }}</td>
+            <td>{{ cleantime(call.createdAt) }}</td>
             <td>{{ call.caller.name }} | {{ call.caller.number }}</td>
             <td>{{ call.responder.name }} | {{ call.responder.number }}</td>
             <td>{{ call.backup.length }}</td>
+            <td>
+                <p ng-repeat="backups in call.backup">{{ backups }}<p>
+            </td>
             <td>{{ call.finished }}</td>
             <td>{{ call.canceled }}</td>
             <td>{{ call.taken }}</td>
-            <td>
-                <button class="btn btn-danger disabled" ng-click="deleteItem(account, $event)">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                </button>
-            </td>
         </tr>
     </tbody>
 </table>
