@@ -1,39 +1,48 @@
-<div class="col-md-2 col-sm-2" style="padding: 0px">
-    <ul class="list-group">
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-md-8">
-                    <h3 class="currentUser">{{ currentUser.name }}</h3>
-                    <p>{{ currentUser.number }}<br>{{ currentUser.role }}</p>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-danger" ng-click="logOut()">LogOut</button>
+<div class="side-menu">
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="brand-wrapper">
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="brand-name-wrapper">
+                        <a href="/" class="navbar-brand">CH<b>Chaverim</b></a>
+                    </div>
+                    <a data-toggle="collapse" href="#" ng-click="logOut()" class="btn btn-default" id="search-trigger">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                    </a>
                 </div>
             </div>
-        </li>
-        <button type="button" ui-sref=".calls" class="list-group-item">
-            <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span> 
-            Calls
-        </button>
-        <button type="button" ui-sref=".current" class="list-group-item">
-            <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span> 
-            Current
-        </button>
-        <button type="button" ui-sref=".account" class="list-group-item">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
-             Account
-        </button>
-        <button type="button" ng-disabled="!currentUser.moderator" ng-class="currentUser.moderator ? '' : 'disabled'" ui-sref=".logs" class="list-group-item">
-            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> 
-            Logs
-        </button>
-        <button type="button" ui-sref=".editaccounts" ng-disabled="!currentUser.dispatch" ng-class="currentUser.dispatch ? '' : 'disabled'" class="list-group-item">
-            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span> 
-            Users
-        </button>
-        <li class="list-group-item">Current session expires in {{ tokenExpiresIn }}</li>
-    </ul>
+        </div>
+    </div>
+
+    <div class="side-menu-container">
+        <ul class="nav navbar-nav">
+            <li>
+                <div class="currentUser">
+                    <h3>{{ currentUser.name }}</h3>
+                    <p>{{ currentUser.number }}<br>{{ currentUser.role }}</p>
+                </div>
+            </li>
+            <li class="side-nav-link active"><a ui-sref=".calls"><span class="glyphicon glyphicon-bullhorn"></span> Calls</a></li>
+            <li class="side-nav-link"><a ui-sref=".current"><span class="glyphicon glyphicon-inbox"></span> Current</a></li>
+            <li class="side-nav-link"><a ui-sref=".account"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+            <li class="side-nav-link"ng-show="currentUser.moderator" ng-class="currentUser.moderator ? '' : 'disabled'">
+                <a ui-sref=".logs"><span class="glyphicon glyphicon-bullhorn"></span> Logs</a>
+            </li>
+            <li class="side-nav-link" ng-show="currentUser.dispatch" ng-class="currentUser.dispatch ? '' : 'disabled'">
+                <a ui-sref=".editaccounts"><span class="glyphicon glyphicon-hdd"></span> Users</a>
+            </li>
+            <li><a> Current session expires in {{ tokenExpiresIn }} </a></li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
 </div>
-<div class="col-md-10 col-sm-10 content">
-    <div ui-view></div>
+
+<div class="side-body">
+    <div class="content" ui-view></div>
 </div>
+<script src="/scripts/navbar-toggle.js"/>

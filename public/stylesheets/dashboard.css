@@ -12,14 +12,8 @@
 .navbar .navbar-toggle{
     border-color: transparent;
 }
-.navbar .list-group-item a{
+.side-menu-container a{
     color: #555;
-}
-.navbar .list-group-item.disabled a{
-    color: #777;
-}
-.navbar .list-group-item.active a{
-    color: #fff;
 }
 @media(max-width:767px){
     .navbar .navbar-text{
@@ -32,8 +26,16 @@
 }
 /**********************Other**********************/
 .content{
-    margin-top: 15px;
+    padding-top: 15px;
 }
 .currentUser{
-    margin: 0px;
+    margin-left: 15px;
+}
+.currentUser h3{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+li[disabled] > a {
+    pointer-events: none;
 }
