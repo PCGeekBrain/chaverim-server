@@ -52,8 +52,6 @@ CallRoutes.post('/', function(req, res){
                 sendPush(req.body.title, req.body.details);
             }
         });
-        
-        //TODO send notificaiton to all users
     } else {
         res.json({success: false, message: 'Invalid Account Permissions'});
     }
@@ -64,7 +62,7 @@ CallRoutes.post('/', function(req, res){
  * body: id
  */
 CallRoutes.delete('/', function(req, res){
-    if (['dispatcher', 'moderator', 'admin'].indexOf(req.user.role) >= 0){
+    if (['admin'].indexOf(req.user.role) >= 0){
         console.log(req.headers.id)
         Call.findOneAndRemove({_id: req.headers.id}, function(err, call){
             if (err) {return res.status(500).json({success: false, err: err, message: "Internal Server Error"})};

@@ -23,7 +23,7 @@ apiRoutes.get('/profile', function(req, res) {
   res.json({
       success: true,
       messsage: "Successfully retrived user data",
-      id: req.user._id,
+      email: req.user.email,
       name: req.user.name,
       number: req.user.number,
       role : req.user.role,

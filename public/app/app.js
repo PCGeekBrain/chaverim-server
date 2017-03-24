@@ -24,7 +24,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
         data: {
             requireLogin: true // this property will apply to all children of 'app'
         },
-        controller: 'HomeController'
+        controller: 'AppController'
     })
     // nested list with just some random string data ======================
     .state('app.calls', {
@@ -42,6 +42,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
     .state('app.account', {
         url: '/account',
         templateUrl: 'app/views/account.html',
+        controller: 'AccountController'
     })
     // Show the logs in a table ===========================================
     .state('app.logs', {
@@ -56,6 +57,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
         controller: 'AccountsController'
     })
 })
+//This forces authentication on the client side (sends to logins screen when token expires)
 .run(function($rootScope, $state, store, jwtHelper) {
     $rootScope.$on('$stateChangeStart', function(e, to) {
         if (to.data && to.data.requireLogin) {
@@ -66,7 +68,6 @@ routerApp.config(function($stateProvider, $urlRouterProvider, jwtInterceptorProv
         }
     });
     $rootScope.$on('tokenHasExpired', function() {
-        alert('Run, Your session has expired!');
         $state.go('login');
     });
 })

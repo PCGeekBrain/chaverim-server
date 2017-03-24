@@ -1,0 +1,13 @@
+.accountBox{
+    padding-top: 50px;
+    text-align: center;
+}
+
+.accountItem{
+    padding: 15px;
+    margin: 10px auto;
+}
+
+.accountItem h4, .accountItem h2 .accountItem p{
+    display: inline-block;
+}

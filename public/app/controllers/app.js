@@ -1,5 +1,5 @@
 angular.module('routerApp')
-.controller('HomeController', function($scope, $http, store, jwtHelper, $state, $interval){
+.controller('AppController', function($scope, $http, store, jwtHelper, $state, $interval){
     $scope.tokenExpiresAt = jwtHelper.getTokenExpirationDate(store.get('jwt'));
     $scope.tokenExpiresIn = parseTime($scope.tokenExpiresAt - new Date());
     $scope.currentUser = {};

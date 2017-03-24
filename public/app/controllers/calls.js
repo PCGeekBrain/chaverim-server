@@ -1,5 +1,5 @@
 angular.module('routerApp')
-.controller('CallsController', function($scope, $http, store, $state, $mdDialog, httpCall){
+.controller('CallsController', function($scope, $http, store, $mdDialog, httpCall){
     $scope.calls = []
 
     $scope.refresh = function(){
@@ -16,13 +16,39 @@ angular.module('routerApp')
 
     //On page functions
     $scope.takeCall = function(call, ev){
-        console.log(call);
+        var request = {
+            method: 'POST',
+            url: '/api/calls/take',
+            headers: {'Authorization': store.get('jwt')},
+            data: {id: call._id}
+        };
+
+        httpCall.execute(request, function(res){
+            $scope.refresh();   //refresh the page after we get the result
+        });
     }
     $scope.backupCall = function(call, ev){
-        console.log(call);
+        var request = {
+            method: 'POST',
+            url: '/api/calls/backup',
+            headers: {'Authorization': store.get('jwt')},
+            data: {id: call._id}
+        };
+
+        httpCall.execute(request, function(res){
+            $scope.refresh();   //refresh the page after we get the result
+        });
     }
     $scope.cancelCall = function(call, ev){
-        console.log(call);
+        var request = {
+            method: 'POST',
+            url: '/api/calls/cancel',
+            headers: {'Authorization': store.get('jwt')},
+            data: {id: call._id}
+        };
+        httpCall.execute(request, function(res){
+            $scope.refresh();   //refresh the page after we get the result
+        });
     }
     $scope.createCall = function(ev){
         var adduser = {
