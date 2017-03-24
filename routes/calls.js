@@ -3,6 +3,7 @@ var config = require("../config/main");
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var Call = require('../app/models/call');
+var sendPush = require('../vendors/ionic_psuh')
 
 var CallRoutes = express.Router();
 
@@ -48,6 +49,7 @@ CallRoutes.post('/', function(req, res){
                 return res.status(500).json({success: false, message: "Server Error"});
             } else{
                 res.json({success: true, call: call, rows_affected: rows_affected});
+                sendPush(req.body.title, req.body.details);
             }
         });
         
