@@ -136,7 +136,7 @@ authRoutes.post('/users', function (req, res) {
 
       newUser.save(function (err) {
         if (err) {
-          return res.status(409).json({ success: false, message: 'That email address already exists.' });
+          return res.status(409).json({ success: false, message: 'That Username already exists.' });
         }
         res.status(201).json({ success: true, message: 'Successfully created a new user.' });
       });
