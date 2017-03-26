@@ -28,6 +28,10 @@ var UserSchema = new mongoose.Schema({
         lowercase: true,
     },
     devices: [String],
+    dispatcher: {
+        type: Boolean, 
+        default: false
+    }
 });
 
 //Hasing of the password

@@ -131,7 +131,8 @@ authRoutes.post('/users', function (req, res) {
         password: req.body.password,
         name: req.body.name,
         number: req.body.number,
-        role: req.body.role
+        role: req.body.role,
+        dispatcher: ['admin', 'moderator', 'dispatcher'].indexOf(req.body.role) >= 0
       });
 
       newUser.save(function (err) {

@@ -5,6 +5,9 @@ var passport = require('passport');
 var Call = require('../app/models/call');
 var User = require('../app/models/user');
 
+//Notifications
+var notifyDispatchers = require('../app/functions/notifyDispatchers');
+
 var CallRoutes = express.Router();
 
 /**
@@ -46,9 +49,9 @@ CallRoutes.post('/', function(req, res){
                     return res.status(500).json({success: false, error: err, message: "Internal Server Error"})
                 };
                 if (call == null){
-                    return res.status(400).json({success: false, message:"Call does not exist"})
+                    return res.status(400).json({success: false, message:"Call does not exist"});
                 } else if (call.responderId != "") {
-                    return res.status(400).json({success: false, message:"Call Already Taken"})
+                    return res.status(400).json({success: false, message:"Call Already Taken"});
                 } else {
                     call.responder = {
                         name: req.user.name,
@@ -59,8 +62,10 @@ CallRoutes.post('/', function(req, res){
                     call.save(function(err, call, numAffected){
                         if(err){
                             return res.status(500).json({success: false, error: err, message: "Internal Server Error"});
+                        } else{
+                            notifyDispatchers("Taken: " + call.title, call.details);
+                            return res.status(200).json({success: true, call: call});
                         }
-                        return res.status(200).json({success: true, call: call});
                     });
                 }
             });
@@ -90,6 +95,7 @@ CallRoutes.put('/', function(req, res){
             call.finished = true;
             call.save(function(err, call, rows_affected){
                 if (err) {return res.status(500).json({success: false, message: "Internal Server Error"})};
+                notifyDispatchers("Finished: " + call.title, call.details);
                 res.status(200).json({success: true, message: "Call completed", call: call, rows_affected: rows_affected});
             });
         } else {
@@ -116,7 +122,8 @@ CallRoutes.delete('/', function(req, res){
                 call.responderId = "";
                 call.taken = false;
                 call.save(function(err, call, rows_affected){
-                    if (err) {res.status(500).json({success: false, error: err , message: "Internal Server Error"})};
+                    if (err) {return res.status(500).json({success: false, error: err , message: "Internal Server Error"})};
+                    notifyDispatchers("Dropped: " + call.title, call.details);
                     res.status(200).json({success: true, call: call, rows_affected: rows_affected});
                 });
             } else {

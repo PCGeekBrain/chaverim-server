@@ -1,11 +1,7 @@
 var request = require('request');
-var config = require('../config/main')
+var config = require('../config/main');
 
 var notifyUsers = function(title, message){
-    var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + config.push_api_key
-    }
 
     var options = {
         url: 'https://api.ionic.io/push/notifications',

@@ -2,10 +2,14 @@ var express = require('express');
 var config = require("../config/main");
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
+
+var User = require('../app/models/user');
+//Import the routes
 var CallRoutes = require('./calls.js');
 var TakeRoutes = require('./take');
 var BackupRoutes = require('./backup');
 var CancelRoutes = require('./cancel');
+var DeviceRegisterRoutes = require('./device.register');
 
 //Create The Router
 var apiRoutes = express.Router();
@@ -18,6 +22,7 @@ apiRoutes.use('/calls', CallRoutes);
 apiRoutes.use('/calls/cancel', CancelRoutes);
 apiRoutes.use('/calls/take', TakeRoutes);
 apiRoutes.use('/calls/backup', BackupRoutes);
+apiRoutes.use('/device/register', DeviceRegisterRoutes);
 
 apiRoutes.get('/profile', function(req, res) {
   res.json({
@@ -31,48 +36,15 @@ apiRoutes.get('/profile', function(req, res) {
     });
 });
 
-//TODO make this whole thing into its own subroute
-apiRoutes.post('/device/register', function(req, res) {
-  console.log(req.body);
-  if(req.body.token){
-    if (req.user.devices.indexOf(req.body.token) >= 0){
-        return res.status(401).json({success: false, messsage: "Device already Registered"});
-    } else {
-      req.user.devices.push(req.body.token);
-      req.user.save(function (err) {
-        console.log(req.user);
-        if (err) {
-          return res.status(500).json({ success: false, message: 'Internal Error' });
-        }
-      });
-      return res.status(200).json({success: true, messsage: "Added Device", devices: req.user.devices});
+apiRoutes.get('/dispatchertokens', function(req, res) {
+  User.find({dispatcher: true}, function(err, results){
+    resulting_list = []
+    for( index in results){
+      resulting_list = resulting_list.concat(results[index].devices);
     }
-    //TODO add to main list
-  } else {
-    return res.status(401).json({success: false, messsage: "Invalid Request"})
-  }
+    return res.status(200).json({devices: resulting_list})
+  });
 });
 
-apiRoutes.delete('/device/register', function(req, res) {
-  console.log(req.headers.token);
-  if(req.headers.token){
-    if (req.user.devices.indexOf(req.headers.token) >= 0){
-        req.user.devices.splice(req.user.devices.indexOf(req.headers.token), 1);
-        req.user.save(function(err){
-          if(err){
-            return res.status(500).json({success: false, message: "internal Server Error"});
-          }
-          else{
-            return res.status(200).json({success: true, messsage: "Removed Device", devices: req.user.devices});
-          }
-        });
-    }else {
-      return res.status(401).json({success: false, messsage: "Device does not exist"})
-    }
-    //TODO add to main list
-  } else {
-    return res.status(401).json({success: false, messsage: "Invalid Request"});
-  }
-});
 
 module.exports = apiRoutes;
