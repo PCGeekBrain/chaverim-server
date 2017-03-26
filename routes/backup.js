@@ -11,21 +11,21 @@ var CallRoutes = express.Router();
  * GET -> Gets a list of all unfinished calls tied to that user
  */
 CallRoutes.get('/', function(req, res){
-    Call.find({finished: false, backup: req.user.email}, {__v: 0}, function(err, calls){
+    Call.find({finished: false, backup: req.user.name}, {__v: 0}, function(err, calls){
         if(err){return res.status(500).json({success: false, error: err, message: "Internal Server Error"})}
         res.status(200).json({success: true, calls: calls});
     });
 });
 
 CallRoutes.get('/all', function(req, res){
-    Call.find({backup: req.user.email}, {__v: 0}, function(err, calls){
+    Call.find({backup: req.user.name}, {__v: 0}, function(err, calls){
         if(err){return res.status(500).json({success: false, error: err, message: "Internal Server Error"})}
         res.status(200).json({success: true, calls: calls});
     });
 });
 
 CallRoutes.get('/count', function(req, res){
-    Call.count({backup: req.user.email}, function(err, count){
+    Call.count({backup: req.user.name}, function(err, count){
         if(err){
             res.status(500).json({success: false, error: err, message: "Internal Server Error"});
         } else {
@@ -47,10 +47,10 @@ CallRoutes.post('/', function(req, res){
                 };
                 if (call == null){
                     return res.status(400).json({success: false, message:"Call does not exist"})
-                } else if (call.backup.indexOf(req.user.email) >= 0) {
+                } else if (call.backup.indexOf(req.user.name) >= 0) {
                     return res.status(400).json({success: false, message:"Already on backup"})
                 } else {
-                    call.backup.push(req.user.email)
+                    call.backup.push(req.user.name)
                     call.save(function(err, call, numAffected){
                         if(err){
                             return res.status(500).json({success: false, error: err, message: "Internal Server Error"});
@@ -78,7 +78,7 @@ CallRoutes.put('/', function(req, res){
             return res.status(500).json({success: false, message: "Internal Server Error"});
         } else if (call == null) {
             return res.status(400).json({success: false, message: "Call Does Not Exist"})
-        } else if (call.backup.indexOf(req.user.email >= 0)){
+        } else if (call.backup.indexOf(req.user.name >= 0)){
             if (call.finished){
                 return res.status(400).json({success: false, message: "Call already compleated"});
             }
@@ -106,8 +106,8 @@ CallRoutes.delete('/', function(req, res){
             if (call === null){
                 return res.status(400).json({success: false, message: "Call does not exist"});
             }
-            if (call.backup.indexOf(req.user.email >= 0)){
-                call.backup.splice(call.backup.indexOf(req.user.email), 1);
+            if (call.backup.indexOf(req.user.name >= 0)){
+                call.backup.splice(call.backup.indexOf(req.user.name), 1);
                 call.save(function(err, call, rows_affected){
                     if (err) {res.status(500).json({success: false, error: err , message: "Internal Server Error"})};
                     res.status(200).json({success: true, call: call, rows_affected: rows_affected});

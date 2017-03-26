@@ -33,19 +33,25 @@
                 <span ng-show="sortType == 'createdAt' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                 <span ng-show="sortType == 'createdAt' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                 </a>
-            </th> 
+            </th>
+            <th>
+                <a ng-click="sortType = 'dispatcher.name'; sortReverse = !sortReverse">Dispatcher
+                <span ng-show="sortType == 'dispatcher.name' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'dispatcher.name' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
+            </th>
             <th>
                 <a ng-click="sortType = 'caller.name'; sortReverse = !sortReverse">Caller
                 <span ng-show="sortType == 'caller.name' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                 <span ng-show="sortType == 'caller.name' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                 </a>
-            </th> 
+            </th>
             <th>
                 <a ng-click="sortType = 'responder.name'; sortReverse = !sortReverse">Responder
                 <span ng-show="sortType == 'responder.name' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                 <span ng-show="sortType == 'responder.name' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                 </a>
-            </th> 
+            </th>
             <th>
                 <a ng-click="sortType = 'backup.length'; sortReverse = !sortReverse">Number of Backups
                 <span ng-show="sortType == 'backup.length' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
@@ -79,6 +85,7 @@
             <td>{{ call.details }}</td>
             <td>{{ call.caller.location }}</td>
             <td>{{ cleantime(call.createdAt) }}</td>
+            <td>{{ call.dispatcher.name }} | {{ call.dispatcher.number }}</td>
             <td>{{ call.caller.name }} | {{ call.caller.number }}</td>
             <td>{{ call.responder.name }} | {{ call.responder.number }}</td>
             <td>{{ call.backup.length }}</td>
