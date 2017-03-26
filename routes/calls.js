@@ -43,6 +43,11 @@ CallRoutes.post('/', function(req, res){
             },
             responderId: "",
             backupId: "",
+            dispatcher:{
+                name: req.user.name,
+                number: req.user.number,
+                email: req.user.email
+            }
         });
         call.save(function(err, call, rows_affected){
             if (err) {

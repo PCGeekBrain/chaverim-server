@@ -20,6 +20,11 @@ var CallSchema = new Schema({
     },
     backup: { type: [String], default: [] },
     createdAt: { type : Date, default: Date.now },
+    dispatcher: {
+        name: {type: String, default: "N/A"},
+        email: String,
+        number: String,
+    }
 });
 
 
