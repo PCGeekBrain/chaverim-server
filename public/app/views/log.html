@@ -21,6 +21,12 @@
                 <span ng-show="sortType == 'details' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                 <span ng-show="sortType == 'details' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                 </a>
+            </th>
+            <th>
+                <a ng-click="sortType = 'location'; sortReverse = !sortReverse">Location
+                <span ng-show="sortType == 'location' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                <span ng-show="sortType == 'location' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                </a>
             </th> 
             <th>
                 <a ng-click="sortType = 'createdAt'; sortReverse = !sortReverse">Created At
@@ -71,6 +77,7 @@
         <tr ng-repeat="call in log | orderBy:sortType:sortReverse | filter:searchLog">
             <td>{{ call.title }}</td>
             <td>{{ call.details }}</td>
+            <td>{{ call.caller.location }}</td>
             <td>{{ cleantime(call.createdAt) }}</td>
             <td>{{ call.caller.name }} | {{ call.caller.number }}</td>
             <td>{{ call.responder.name }} | {{ call.responder.number }}</td>
