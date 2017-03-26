@@ -32,12 +32,12 @@ var notifyDispatchers = function(title, message){
             request(options, function(error, response, body){
                 if (!error && response.statusCode == 200) {
                     // Print out the response body
-                    console.log(body);
+                    // console.log(body);
                 } else if (!error && response.statusCode != 200){
                     // Print out the response body
-                    console.log(body);
+                    // console.log(body);
                 } else {
-                    console.log(error);
+                    // console.log(error);
                 }
             });
         }
