@@ -31,10 +31,8 @@
             <li class="side-nav-link active"><a ui-sref=".calls"><span class="glyphicon glyphicon-bullhorn"></span> Calls</a></li>
             <li class="side-nav-link"><a ui-sref=".current"><span class="glyphicon glyphicon-inbox"></span> Current</a></li>
             <li class="side-nav-link"><a ui-sref=".account"><span class="glyphicon glyphicon-user"></span> Account</a></li>
-            <li class="side-nav-link" ng-show="currentUser.moderator" ng-class="currentUser.moderator ? '' : 'disabled'">
-                <a ui-sref=".logs"><span class="glyphicon glyphicon-bullhorn"></span> Logs</a>
-            </li>
-            <li class="side-nav-link" ng-show="currentUser.dispatch" ng-class="currentUser.dispatch ? '' : 'disabled'">
+            <li class="side-nav-link"><a ui-sref=".logs"><span class="glyphicon glyphicon-bullhorn"></span> Logs</a></li>
+            <li class="side-nav-link" ng-show="currentUser.moderator" ng-class="currentUser.dispatch ? '' : 'disabled'">
                 <a ui-sref=".editaccounts"><span class="glyphicon glyphicon-hdd"></span> Users</a>
             </li>
             <li><a> Current session expires in {{ tokenExpiresIn }} </a></li>

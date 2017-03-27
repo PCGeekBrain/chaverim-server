@@ -21,11 +21,11 @@ angular.module('routerApp')
     }).then( function(response) {
         if( response.data && response.data.success){
             $scope.currentUser = response.data;
-            if ($scope.currentUser.role === 'dispatcher'){
-                $scope.currentUser.dispatch = true;
-            }
+            // if ($scope.currentUser.role === 'dispatcher'){
+            //     $scope.currentUser.dispatch = true;
+            // }
             if (['moderator', 'admin'].indexOf($scope.currentUser.role) >= 0){
-                $scope.currentUser.dispatch = true;
+                // $scope.currentUser.dispatch = true;
                 $scope.currentUser.moderator = true;
             }
         }
