@@ -58,9 +58,39 @@ CallRoutes.post('/', function(req, res){
             }
         });
     } else {
-        res.json({success: false, message: 'Invalid Account Permissions'});
+        res.status(401).json({success: false, message: 'Invalid Account Permissions'});
     }
 });
+
+/**
+ * PUT -> Update Call in the system
+ */
+CallRoutes.put('/', function(req, res){
+    if(['dispatcher', 'moderator', 'admin'].indexOf(req.user.role) >= 0){
+        if (req.body.id && req.body.call){
+            //TODO
+            Call.findOne({_id: req.body.id}, function(err, call){
+                if(err){
+                    res.status(500).json({success: false, message: 'Internal Server Error'});
+                } else {
+                    call = req.body.call;
+                    call.save(function(err, finalCall, rows_affected){
+                        if (err){
+                            res.status(500).json({success: false, message: 'Internal Server Error'});
+                        } else {
+                            res.json({success: true, message: "Sucessfully updated Call", call: finalCall, rows_affected: rows_affected});
+                        }
+                    });
+                }
+            });
+        } else {
+            res.status(401).json({success: false, message: 'Invalid Request'});
+        }
+        //TODO
+    } else {
+        res.status(401).json({success: false, message: 'Invalid Account Permissions'});
+    }
+})
 
 /**
  * DELETE -> Delete a call from the system, moderator or higher
