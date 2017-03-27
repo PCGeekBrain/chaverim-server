@@ -43,12 +43,12 @@ CallRoutes.post('/', function(req, res){
         if(req.body.id){
             Call.findOne({finished: false, _id: req.body.id}, {__v: 0}, function(err, call){
                 if (err){
-                    return res.status(500).json({success: false, error: err, message: "Internal Server Error"})
+                    return res.status(500).json({success: false, error: err, message: "Internal Server Error"});
                 };
                 if (call == null){
-                    return res.status(400).json({success: false, message:"Call does not exist"})
+                    return res.status(400).json({success: false, message:"Call does not exist"});
                 } else if (call.backup.indexOf(req.user.name) >= 0) {
-                    return res.status(400).json({success: false, message:"Already on backup"})
+                    return res.status(400).json({success: false, message:"Already on backup"});
                 } else {
                     call.backup.push(req.user.name)
                     call.save(function(err, call, numAffected){

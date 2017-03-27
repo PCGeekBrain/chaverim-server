@@ -30,8 +30,8 @@
                 <button class="btn btn-success" ng-disabled="call.taken" ng-class="call.taken ? 'disabled' : ''" ng-click="finishCall(call, $event)">
                     <span class="glyphicon glyphicon-road" aria-hidden="true"></span> Finish Call
                 </button>
-                <button class="btn btn-info" ng-click="cancelCall(call, $event)">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Drop Call
+                <button class="btn btn-danger" ng-click="cancelCall(call, $event)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Drop Call
                 </button>
             </td>
         </tr>
@@ -66,8 +66,8 @@
                 <button class="btn btn-success" ng-disabled="call.taken" ng-class="call.taken ? 'disabled' : ''" ng-click="finishBackup(call, $event)">
                     <span class="glyphicon glyphicon-road" aria-hidden="true"></span> Finish Call
                 </button>
-                <button class="btn btn-info" ng-click="cancelBackup(call, $event)">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Drop Call
+                <button class="btn btn-danger" ng-click="cancelBackup(call, $event)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Drop Call
                 </button>
             </td>
         </tr>
