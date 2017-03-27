@@ -27,6 +27,7 @@ CancelRoutes.post('/', function(req, res){
                         if(err){
                             return res.status(500).json({success: false, error: err, message: "Internal Server Error"});
                         }
+                        notifyResponder("Call Canceled", call.title +"...", call.responderId);
                         return res.status(200).json({success: true, call: call});
                     });
                 }

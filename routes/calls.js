@@ -85,6 +85,7 @@ CallRoutes.put('/', function(req, res){
                         if (err){
                             res.status(500).json({success: false, message: 'Internal Server Error'});
                         } else {
+                            notifyResponder("Call Edited", call.title +"...", call.responderId);
                             res.json({success: true, message: "Sucessfully updated Call", call: finalCall, rows_affected: rows_affected});
                         }
                     });
