@@ -75,7 +75,12 @@ CallRoutes.put('/', function(req, res){
                 if(err){
                     res.status(500).json({success: false, message: 'Internal Server Error'});
                 } else {
-                    call = req.body.call;
+                    console.log(call.caller);
+                    console.log(req.body.call.caller)
+                    call.title = req.body.call.title;
+                    call.details = req.body.call.details;
+                    call.caller = req.body.call.caller;
+                    console.log(call);
                     call.save(function(err, finalCall, rows_affected){
                         if (err){
                             res.status(500).json({success: false, message: 'Internal Server Error'});

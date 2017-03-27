@@ -67,9 +67,46 @@ angular.module('routerApp')
         }
         //Refresh the UI
         $mdDialog.show(adduser).then(function(result) {
-            $scope.refresh()
+            $scope.refresh();
         }, function() {
-            $scope.refresh()
+            $scope.refresh();
         });
+    }
+
+    $scope.editCall = function(call, ev){
+        var adduser = {
+            templateUrl: '/app/views/dialogs/edit_call.html',
+            clickOutsideToClose: true,
+            controller: function($scope, $mdDialog){
+                $scope.call = call   //add user to scope
+                $scope.cancel = function() { $mdDialog.cancel(); }  //if they hit cancel dismiss the dialog
+                $scope.save = function() {  //if they hit save run the http request
+                    httpCall.execute({
+                        method: 'PUT',
+                        url: '/api/calls', //Post request to /auth/users with the jwt header
+                        headers: {'Authorization': store.get('jwt')},
+                        data: {id: $scope.call._id, call: $scope.call}
+                    }, function(res){ 
+                        $mdDialog.cancel(); 
+                    });
+                };
+            }
+        }
+        //Refresh the UI
+        $mdDialog.show(adduser).then(function(result) {
+            // $scope.refresh();
+        }, function() {
+            // $scope.refresh();
+        });
+
+        // var request = {
+        //     method: 'PUT',
+        //     url: '/api/calls',
+        //     headers: {'Authorization': store.get('jwt')},
+        //     data: {id: call._id, call: call}
+        // };
+        // httpCall.execute(request, function(res){
+        //     $scope.refresh();
+        // });
     }
 });
