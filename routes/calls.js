@@ -64,6 +64,8 @@ CallRoutes.post('/', function(req, res){
 
 /**
  * PUT -> Update Call in the system
+ * id -> the id of the call
+ * call -> json represntation of the call
  */
 CallRoutes.put('/', function(req, res){
     if(['dispatcher', 'moderator', 'admin'].indexOf(req.user.role) >= 0){
@@ -73,7 +75,12 @@ CallRoutes.put('/', function(req, res){
                 if(err){
                     res.status(500).json({success: false, message: 'Internal Server Error'});
                 } else {
-                    call = req.body.call;
+                    console.log(call.caller);
+                    console.log(req.body.call.caller)
+                    call.title = req.body.call.title;
+                    call.details = req.body.call.details;
+                    call.caller = req.body.call.caller;
+                    console.log(call);
                     call.save(function(err, finalCall, rows_affected){
                         if (err){
                             res.status(500).json({success: false, message: 'Internal Server Error'});
@@ -107,7 +114,6 @@ CallRoutes.delete('/', function(req, res){
                 res.status(200).json({success: true, call: call});
             }
         });
-        
         //TODO send notificaiton to all users
     } else {
         res.status(403).json({success: false, message: 'Invalid Account Permissions'});
