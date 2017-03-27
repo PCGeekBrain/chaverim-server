@@ -95,6 +95,7 @@ var updateField = function (user, field, value, admin, passEdit, res) {
  */
 authRoutes.put('/users', function(req, res) {
   // If the request is from an admin editing a user
+  console.log(req.body);
   if (['admin', 'moderator'].indexOf(req.user.role) >= 0 && req.body.user) {
     User.findOne({ email: req.body.user }, { password: 0, __v: 0 }, function(err, user) {
       if (err) { return res.status(500).json({ success: false, message: "Internal Server Error" }); }

@@ -14,21 +14,24 @@ angular.module('routerApp')
             $state.go('login'); // when the token is expired go to the login screen
         }
     },1000,0);
-    $http({
-        method: 'GET',
-        url: '/api/profile',
-        headers: {Authorization: store.get('jwt')}
-    }).then( function(response) {
-        if( response.data && response.data.success){
-            $scope.currentUser = response.data;
-            if ($scope.currentUser.role === 'dispatcher'){
-                $scope.currentUser.dispatch = true;
-            } else if (['moderator', 'admin'].indexOf($scope.currentUser.role) >= 0){
-                $scope.currentUser.dispatch = true;
-                $scope.currentUser.moderator = true;
+    $scope.updateProfile = function(){
+        $http({
+            method: 'GET',
+            url: '/api/profile',
+            headers: {Authorization: store.get('jwt')}
+        }).then( function(response) {
+            if( response.data && response.data.success){
+                $scope.currentUser = response.data;
+                if ($scope.currentUser.role === 'dispatcher'){
+                    $scope.currentUser.dispatch = true;
+                } else if (['moderator', 'admin'].indexOf($scope.currentUser.role) >= 0){
+                    $scope.currentUser.dispatch = true;
+                    $scope.currentUser.moderator = true;
+                }
             }
-        }
-    });
+        });
+    }
+    $scope.updateProfile();
     
     //formatting functions
     $scope.cleantime = function(time){

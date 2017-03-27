@@ -54,7 +54,7 @@ CallRoutes.post('/', function(req, res){
                 return res.status(500).json({success: false, message: "Server Error"});
             } else{
                 res.json({success: true, call: call, rows_affected: rows_affected});
-                // sendPush(req.body.title, req.body.details);
+                sendPush(req.body.title, req.body.details);
             }
         });
     } else {
