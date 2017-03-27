@@ -46,7 +46,7 @@ authRoutes.use('/users', passport.authenticate('jwt', { session: false }));
 
 /** GET all the users (admin, moderator)*/
 authRoutes.get('/users', function (req, res) {
-  if (['admin', 'moderator', 'dispatcher'].indexOf(req.user.role) >= 0) {
+  if (['admin', 'moderator'].indexOf(req.user.role) >= 0) {
     User.find({}, { password: 0, __v: 0 }, function (err, users) {
       if (err) throw err;
       res.status(200).json({ success: true, message: "Successfull listing of users", users: users })
