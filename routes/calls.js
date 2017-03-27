@@ -64,6 +64,8 @@ CallRoutes.post('/', function(req, res){
 
 /**
  * PUT -> Update Call in the system
+ * id -> the id of the call
+ * call -> json represntation of the call
  */
 CallRoutes.put('/', function(req, res){
     if(['dispatcher', 'moderator', 'admin'].indexOf(req.user.role) >= 0){
