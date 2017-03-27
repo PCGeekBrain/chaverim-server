@@ -78,6 +78,7 @@ var updateField = function (user, field, value, admin, passEdit, res) {
   } else if (field === 'role' && admin) {    //only admins can change roles
     if (user.schema.path('role').enumValues.indexOf(value) >= 0) {
       user.role = value;
+      user.dispatcher =  ['admin', 'moderator', 'dispatcher'].indexOf(req.body.role) >= 0
       user.save(function (err) {
         if (err) { return res.status(500).json({ success: false, message: 'Error updating role', error: err }); }
         res.status(202).json({ success: true, message: 'Successfully updated role', user: user });
