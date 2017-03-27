@@ -114,7 +114,6 @@ CallRoutes.delete('/', function(req, res){
                 res.status(200).json({success: true, call: call});
             }
         });
-        
         //TODO send notificaiton to all users
     } else {
         res.status(403).json({success: false, message: 'Invalid Account Permissions'});

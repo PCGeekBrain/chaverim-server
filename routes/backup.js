@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var Call = require('../app/models/call');
 var User = require('../app/models/user');
+var notifyResponder = require('../app/functions/notifyResponder');
 
 var CallRoutes = express.Router();
 
@@ -50,12 +51,14 @@ CallRoutes.post('/', function(req, res){
                 } else if (call.backup.indexOf(req.user.name) >= 0) {
                     return res.status(400).json({success: false, message:"Already on backup"});
                 } else {
-                    call.backup.push(req.user.name)
+                    call.backup.push(req.user.name);
                     call.save(function(err, call, numAffected){
                         if(err){
                             return res.status(500).json({success: false, error: err, message: "Internal Server Error"});
+                        } else {
+                            notifyResponder("Backed Up!", call.title +"...", call.responderId);
+                            return res.status(200).json({success: true, call: call});
                         }
-                        return res.status(200).json({success: true, call: call});
                     });
                 }
             });
