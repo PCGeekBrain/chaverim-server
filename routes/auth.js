@@ -10,7 +10,6 @@ var authRoutes = express.Router();
 
 // Authenticate the user and get a JSON Web Token to include in the header of future requests.
 authRoutes.post('/authenticate', function (req, res) {
-  console.log(req.body);
   if (req.body.email){
     req.body.email = req.body.email.toLowerCase();
     //Find the user
