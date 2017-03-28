@@ -9,7 +9,7 @@ var notifyDispatcher = require('../app/functions/notifyDispatchers');
 var CallRoutes = express.Router();
 
 /**
- * GET -> Returns list of unfinished calls
+ * GET  / -> Returns list of unfinished calls
  */
 CallRoutes.get('/', function(req, res){
     Call.find({finished: false}, {__v: 0}, function(err, calls){
@@ -18,8 +18,20 @@ CallRoutes.get('/', function(req, res){
     });
 });
 
+/**
+ * GET /all -> Get a list of all calls in the database
+ */
 CallRoutes.get('/all', function(req, res){
     Call.find({}, function(err, calls){
+        if(err){return res.status(500).json({success: false, error: err})};
+        res.status(200).json({success: true, calls: calls});
+    });
+});
+/**
+ * GET /log - Get a list of all finished Calls
+ */
+CallRoutes.get('/log', function(req, res){
+    Call.find({finished: true}, function(err, calls){
         if(err){return res.status(500).json({success: false, error: err})};
         res.status(200).json({success: true, calls: calls});
     });
@@ -76,12 +88,9 @@ CallRoutes.put('/', function(req, res){
                 if(err){
                     res.status(500).json({success: false, message: 'Internal Server Error'});
                 } else {
-                    console.log(call.caller);
-                    console.log(req.body.call.caller)
                     call.title = req.body.call.title;
                     call.details = req.body.call.details;
                     call.caller = req.body.call.caller;
-                    console.log(call);
                     call.save(function(err, finalCall, rows_affected){
                         if (err){
                             res.status(500).json({success: false, message: 'Internal Server Error'});
