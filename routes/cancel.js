@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var Call = require('../app/models/call');
 var User = require('../app/models/user');
+var notifyResponder = require('../app/functions/notifyResponder');
 
 var CancelRoutes = express.Router();
 
