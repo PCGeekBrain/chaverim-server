@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var Call = require('../app/models/call');
 var User = require('../app/models/user');
-var notifyResponder = require('../app/functions/notifyResponder');
+var notifyDispatchers = require('../app/functions/notifyDispatchers');
 
 var CancelRoutes = express.Router();
 
@@ -28,7 +28,7 @@ CancelRoutes.post('/', function(req, res){
                         if(err){
                             return res.status(500).json({success: false, error: err, message: "Internal Server Error"});
                         }
-                        notifyResponder("Call Canceled", call.title +"...", call.responderId);
+                        notifyDispatchers("Call Canceled", call.title +"...", call.responderId);
                         return res.status(200).json({success: true, call: call});
                     });
                 }

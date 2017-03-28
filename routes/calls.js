@@ -3,7 +3,8 @@ var config = require("../config/main");
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var Call = require('../app/models/call');
-var sendPush = require('../vendors/ionic_psuh')
+var sendPush = require('../vendors/ionic_psuh');
+var notifyDispatcher = require('../app/functions/notifyDispatchers');
 
 var CallRoutes = express.Router();
 
@@ -85,7 +86,7 @@ CallRoutes.put('/', function(req, res){
                         if (err){
                             res.status(500).json({success: false, message: 'Internal Server Error'});
                         } else {
-                            notifyResponder("Call Edited", call.title +"...", call.responderId);
+                            notifyDispatcher("Call Edited", call.title +"...", call.responderId);
                             res.json({success: true, message: "Sucessfully updated Call", call: finalCall, rows_affected: rows_affected});
                         }
                     });
