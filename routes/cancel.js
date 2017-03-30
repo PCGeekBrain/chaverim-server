@@ -24,6 +24,11 @@ CancelRoutes.post('/', function(req, res){
                 } else {
                     call.finished = true;
                     call.canceled = true;
+                    call.canceled_by = {
+                        name: req.user.name,
+                        email: req.user.email,
+                        number: req.user.number
+                    }
                     call.save(function(err, call, numAffected){
                         if(err){
                             return res.status(500).json({success: false, error: err, message: "Internal Server Error"});

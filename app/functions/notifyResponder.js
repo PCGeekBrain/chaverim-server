@@ -3,6 +3,13 @@ var request = require('request');
 var config = require('../../config/main');
 
 var notifyResponders = function(title, message, responderId){
+    if(!message || message === undefined || message === null){
+        message = "N/A"
+    }
+    if(!title || title === undefined || title === null){
+        title = "N/A"
+    }
+    
     User.findOne({_id: responderId}, function(err, user) {
         if (err) {
             console.log(err);

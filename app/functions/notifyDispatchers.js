@@ -3,6 +3,13 @@ var request = require('request');
 var config = require('../../config/main');
 
 var notifyDispatchers = function(title, message){
+    if(!message || message === undefined || message === null){
+        message = "N/A"
+    }
+    if(!title || title === undefined || title === null){
+        title = "N/A"
+    }
+    
     User.find({dispatcher: true}, function(err, results) {
         if (err) {
             console.log(err);

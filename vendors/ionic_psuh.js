@@ -2,6 +2,12 @@ var request = require('request');
 var config = require('../config/main');
 
 var notifyUsers = function(title, message){
+    if(!message || message === undefined || message === null){
+        message = "N/A"
+    }
+    if(!title || title === undefined || title === null){
+        title = "N/A"
+    }
 
     var options = {
         url: 'https://api.ionic.io/push/notifications',

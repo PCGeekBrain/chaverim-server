@@ -59,6 +59,7 @@
                 </a>
             </th>
             <th>Backups</th>
+            <th>Cancelled by</th>
             <th>
                 <a ng-click="sortType = 'finished'; sortReverse = !sortReverse">Finished
                 <span ng-show="sortType == 'finished' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
@@ -76,7 +77,7 @@
                 <span ng-show="sortType == 'taken' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                 <span ng-show="sortType == 'taken' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                 </a>
-            </th> 
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -92,6 +93,7 @@
             <td>
                 <p ng-repeat="backups in call.backup">{{ backups }}<p>
             </td>
+            <td>{{ call.canceled_by.name }}</td>
             <td>{{ call.finished }}</td>
             <td>{{ call.canceled }}</td>
             <td>{{ call.taken }}</td>

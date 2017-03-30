@@ -24,6 +24,11 @@ var CallSchema = new Schema({
         name: {type: String, default: "N/A"},
         email: String,
         number: String,
+    },
+    canceled_by: {
+        name: {type: String, default: ""},
+        email: String,
+        number: String
     }
 });
 
