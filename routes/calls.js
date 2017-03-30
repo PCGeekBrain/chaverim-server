@@ -95,7 +95,10 @@ CallRoutes.put('/', function(req, res){
                         if (err){
                             res.status(500).json({success: false, message: 'Internal Server Error'});
                         } else {
-                            notifyDispatcher("Call Edited", call.title +"...", call.responderId);
+                            if(call.title === undefined || call.title === null){
+                                call.title = "N/A"
+                            }
+                            sendPush("Call Edited by " + req.user.name, call.tite);
                             res.json({success: true, message: "Sucessfully updated Call", call: finalCall, rows_affected: rows_affected});
                         }
                     });
