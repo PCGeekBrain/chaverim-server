@@ -15,7 +15,7 @@ var CallSchema = new Schema({
     },
     responderId: {type: String, default: ""},
     responder: {
-        name: String,
+        name: {type: String, default: ""},
         number: String,
     },
     backup: { type: [String], default: [] },

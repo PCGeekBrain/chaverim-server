@@ -31,7 +31,8 @@ CallRoutes.get('/all', function(req, res){
  * GET /log - Get a list of all finished Calls
  */
 CallRoutes.get('/log', function(req, res){
-    Call.find({finished: true}, function(err, calls){
+    var q = Call.find({finished: true}).sort({'createdAt': -1}).limit(25)
+    q.exec(function(err, calls){
         if(err){return res.status(500).json({success: false, error: err})};
         res.status(200).json({success: true, calls: calls});
     });
