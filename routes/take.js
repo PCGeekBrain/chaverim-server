@@ -63,7 +63,7 @@ CallRoutes.post('/', function(req, res){
                         if(err){
                             return res.status(500).json({success: false, error: err, message: "Internal Server Error"});
                         } else{
-                            notifyDispatchers("Taken: " + call.title, call.details);
+                            notifyDispatchers("Call taken by " + req.user.name, call.title);
                             return res.status(200).json({success: true, call: call});
                         }
                     });
