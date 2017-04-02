@@ -35,8 +35,8 @@ deviceRoutes.delete('/', function(req, res) {
             return res.status(200).json({success: true, messsage: "Removed Device", devices: req.user.devices});
           }
         });
-    }else {
-      return res.status(401).json({success: false, messsage: "Device does not exist"})
+    } else {
+      return res.status(401).json({success: false, messsage: "Device does not exist"});
     }
     //TODO add to main list
   } else {

@@ -92,6 +92,7 @@ CallRoutes.put('/', function(req, res){
                     call.title = req.body.call.title;
                     call.details = req.body.call.details;
                     call.caller = req.body.call.caller;
+                    call.edited_by.push(req.user.name);
                     call.save(function(err, finalCall, rows_affected){
                         if (err){
                             res.status(500).json({success: false, message: 'Internal Server Error'});

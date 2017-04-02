@@ -95,7 +95,7 @@ CallRoutes.put('/', function(req, res){
             call.finished = true;
             call.save(function(err, call, rows_affected){
                 if (err) {return res.status(500).json({success: false, message: "Internal Server Error"})};
-                notifyDispatchers("Finished: " + call.title, call.details);
+                notifyDispatchers("Finished by " + req.user.name, call.title);
                 res.status(200).json({success: true, message: "Call completed", call: call, rows_affected: rows_affected});
             });
         } else {

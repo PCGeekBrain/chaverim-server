@@ -27,7 +27,7 @@
                 <p ng-repeat="backups in call.backup">{{ backups }}<p>
             </td>
             <td>
-                <button class="btn btn-success" ng-disabled="call.taken" ng-class="call.taken ? 'disabled' : ''" ng-click="finishCall(call, $event)">
+                <button class="btn btn-success" ng-click="finishCall(call, $event)">
                     <span class="glyphicon glyphicon-road" aria-hidden="true"></span> Finish Call
                 </button>
                 <button class="btn btn-danger" ng-click="cancelCall(call, $event)">
@@ -63,7 +63,7 @@
             <td>{{ call.caller.location }}</td>
             <td>{{ call.responder.name }} | {{ call.responder.number }}</td>
             <td>
-                <button class="btn btn-success" ng-disabled="call.taken" ng-class="call.taken ? 'disabled' : ''" ng-click="finishBackup(call, $event)">
+                <button class="btn btn-success" ng-click="finishBackup(call, $event)">
                     <span class="glyphicon glyphicon-road" aria-hidden="true"></span> Finish Call
                 </button>
                 <button class="btn btn-danger" ng-click="cancelBackup(call, $event)">

@@ -56,7 +56,7 @@ CallRoutes.post('/', function(req, res){
                         if(err){
                             return res.status(500).json({success: false, error: err, message: "Internal Server Error"});
                         } else {
-                            notifyResponder("Backed Up!", call.title +"...", call.responderId);
+                            notifyResponder("Backed Up by " + req.user.name, call.title +"...", call.responderId);
                             return res.status(200).json({success: true, call: call});
                         }
                     });
@@ -87,8 +87,12 @@ CallRoutes.put('/', function(req, res){
             }
             call.finished = true;
             call.save(function(err, call, rows_affected){
-                if (err) {return res.status(500).json({success: false, message: "Internal Server Error"})};
-                return res.status(200).json({success: true, message: "Call completed", call: call, rows_affected: rows_affected});
+                if (err) {
+                    return res.status(500).json({success: false, message: "Internal Server Error"})
+                } else {
+                    notifyDispatchers("Finished by " + req.user.name, call.title);
+                    return res.status(200).json({success: true, message: "Call completed", call: call, rows_affected: rows_affected});
+                }
             });
         } else {
             return res.status(400).json({
