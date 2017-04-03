@@ -86,7 +86,10 @@
             <td>
                 <p ng-repeat="editor in call.edited_by track by $index">{{ editor }}<p>
             </td>
-            <td>{{ call.taken }}</td>
+            <td>
+                <span class="glyphicon glyphicon-ok" ng-show="call.taken" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-remove" ng-show="!call.taken" aria-hidden="true"></span>
+            </td>
         </tr>
     </tbody>
 </table>
