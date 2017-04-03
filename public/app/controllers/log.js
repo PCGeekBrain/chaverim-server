@@ -3,7 +3,7 @@ angular.module('routerApp')
     var vm = this;
     $scope.log = []
     $scope.sortType     = '_id'; // set the default sort type
-    $scope.sortReverse  = false;  // set the default sort order
+    $scope.sortReverse  = true;  // set the default sort order
     $scope.searchAccount   = '';     // set the default search/filter term
 
     $scope.refresh = function(){

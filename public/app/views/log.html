@@ -53,7 +53,7 @@
                 </a>
             </th>
             <th>
-                <a ng-click="sortType = 'backup.length'; sortReverse = !sortReverse">Number of Backups
+                <a ng-click="sortType = 'backup.length'; sortReverse = !sortReverse">#
                 <span ng-show="sortType == 'backup.length' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
                 <span ng-show="sortType == 'backup.length' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                 </a>
@@ -84,7 +84,7 @@
             </td>
             <td>{{ call.canceled_by.name }}</td>
             <td>
-                <p ng-repeat="editor in call.edited_by">{{ editor }}<p>
+                <p ng-repeat="editor in call.edited_by track by $index">{{ editor }}<p>
             </td>
             <td>{{ call.taken }}</td>
         </tr>
