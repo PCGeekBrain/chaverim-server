@@ -11,7 +11,6 @@ angular.module('routerApp')
             headers: {'Authorization': store.get('jwt')},
         };
         httpCall.execute(request, function(res){
-            console.log(res);
             $scope.calls = res.data.calls;
         });
     }

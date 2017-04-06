@@ -5,7 +5,9 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var passport = require('passport');
-var config = require('./config/main')
+var helmet = require('helmet')
+
+var config = require('./config/main');
 
 var index = require('./routes/index');
 var apiRoutes = require('./routes/api');
@@ -35,6 +37,10 @@ mongoose.connect(config.database)
 
 //bring in passport strategy
 require('./config/passport')(passport);
+
+//Prevents commmon security holes.
+//More info available here: https://expressjs.com/en/advanced/best-practice-security.html#use-helmet
+app.use(helmet());
 
 //Allow CORS
 app.use(function(req, res, next) {
