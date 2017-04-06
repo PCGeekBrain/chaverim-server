@@ -3,8 +3,7 @@ angular.module('routerApp')
     $scope.user = {};
     $scope.attempts = 0;
     $scope.login = function () {
-        console.log($scope.user);
-        if($scope.attempts < 5){
+        if($scope.attempts < 10){
             $http({
                 url: '/auth/authenticate',
                 method: 'POST',
@@ -18,13 +17,19 @@ angular.module('routerApp')
                 }
             }, function(err) {
                 $scope.attempts += 1;
-                if(err.data && !err.data.success){
+                if(err.data && !err.data.success && !err.data.error){
                     $scope.message = err.data.message;
+                    $scope.message_class = 'alert-danger';
+                } else if(err.data){
+                    $scope.message = err.data.error.text;
                     $scope.message_class = 'alert-danger';
                 } else{
                     console.log(err);
                 }
             })
+        } else {
+            $scope.message = "To many attempts for this session. Please come back later.";
+            $scope.message_class = 'alert-danger';
         }
     }
 });
