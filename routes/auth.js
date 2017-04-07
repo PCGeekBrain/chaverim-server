@@ -118,7 +118,6 @@ authRoutes.put('/users', function(req, res) {
       updateField(user, req.body.field, req.body.value, false, true, res);
     });
   } else {
-    console.log(req.body.field);
     res.status(400).json({ success: false, message: "Invalid Request" });
   }
 });
