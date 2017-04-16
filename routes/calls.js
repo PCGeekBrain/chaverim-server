@@ -3,7 +3,8 @@ var config = require("../config/main");
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
 var Call = require('../app/models/call');
-var sendPush = require('../vendors/ionic_psuh');
+// var sendPush = require('../vendors/ionic_psuh');
+var nofityAllRegisteredUsers = require('../app/functions/nofityAllRegisteredUsers')
 var notifyDispatcher = require('../app/functions/notifyDispatchers');
 
 var CallRoutes = express.Router();
@@ -68,7 +69,7 @@ CallRoutes.post('/', function(req, res){
                 return res.status(500).json({success: false, message: "Server Error"});
             } else{
                 res.json({success: true, call: call, rows_affected: rows_affected});
-                sendPush(req.body.title, req.body.details);
+                nofityAllRegisteredUsers(req.body.title, req.body.details);
             }
         });
     } else {
@@ -100,7 +101,7 @@ CallRoutes.put('/', function(req, res){
                             if(call.title === undefined || call.title === null){
                                 call.title = "N/A"
                             }
-                            sendPush("Call Edited by " + req.user.name, call.tite);
+                            nofityAllRegisteredUsers("Call Edited by " + req.user.name, call.tite);
                             res.json({success: true, message: "Sucessfully updated Call", call: finalCall, rows_affected: rows_affected});
                         }
                     });

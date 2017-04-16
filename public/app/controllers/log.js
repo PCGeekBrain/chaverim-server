@@ -22,7 +22,7 @@ angular.module('routerApp')
     $scope.cleantime = function(time){
         var date = new Date(time);
         var timeOfDay = $scope.$parent.cleantime(time);
-        return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + "  " + timeOfDay;
+        return date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + timeOfDay;
     }
 
 });
