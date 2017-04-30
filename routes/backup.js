@@ -5,6 +5,7 @@ var passport = require('passport');
 var Call = require('../app/models/call');
 var User = require('../app/models/user');
 var notifyResponder = require('../app/functions/notifyResponder');
+var notifyDispatchers = require('../app/functions/notifyDispatchers')
 
 var CallRoutes = express.Router();
 
