@@ -8,7 +8,11 @@ var ExpressBrute = require('express-brute');
 
 // stores state locally, don't use this in production - Doing it anyway
 var store = new ExpressBrute.MemoryStore();
-var bruteforce = new ExpressBrute(store);
+var bruteforce = new ExpressBrute(store, {
+  freeRetries: 5,
+  minWait: 1*60*1000,
+  maxWait: 60*60*1000
+});
 
 //Create The Router
 var authRoutes = express.Router();
