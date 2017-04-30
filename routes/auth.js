@@ -7,18 +7,18 @@ var morgan = require('morgan');
 var ExpressBrute = require('express-brute');
 
 // stores state locally, don't use this in production - Doing it anyway
-var store = new ExpressBrute.MemoryStore();
-var bruteforce = new ExpressBrute(store, {
-  freeRetries: 5,
-  minWait: 1*60*1000,
-  maxWait: 60*60*1000
-});
+// var store = new ExpressBrute.MemoryStore();
+// var bruteforce = new ExpressBrute(store, {
+//   freeRetries: 5,
+//   minWait: 1*60*1000,
+//   maxWait: 60*60*1000
+// });
 
 //Create The Router
 var authRoutes = express.Router();
 
 // Authenticate the user and get a JSON Web Token to include in the header of future requests.
-authRoutes.post('/authenticate', bruteforce.prevent, function (req, res) {
+authRoutes.post('/authenticate', function(req, res) {
   if (req.body.email){
     req.body.email = req.body.email.toLowerCase();
     //Find the user
