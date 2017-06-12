@@ -27,7 +27,7 @@ a:hover {
 html,
 body {
   height: 100%;
-  background: url('/images/chpres.jpg') no-repeat center fixed;
+  background: url('/images/back.jpeg') no-repeat center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
